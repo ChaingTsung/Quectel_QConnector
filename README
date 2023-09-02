@@ -1,0 +1,24 @@
+### This is a dail software for Quectel RM50x series. It has been passed on Ubuntu 20.04 x64 hosted with kernel 5.19 & ArchLinux x64 hosted with kernel 6.1 & Banana Pi R3 OpenWRT with branch `main`
+
+
+### How to build
+> For Openwrt & LEDE
+```shell
+mkdir -p package/wwan/app/Quectel_QConnector
+git clone $this package/wwan/app/Quectel_QConnector
+./script/feeds update -a && ./script/feeds install -a
+make menuconfig
+```
+
+
+----
+
+> For Other Linux, such as Debain and etc.
+```shell
+git clone $this $your_path
+cd $your_path/src
+make
+manually cp $exec into /usr/bin/
+```
+
+

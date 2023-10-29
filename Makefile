@@ -16,13 +16,23 @@ define Build/Prepare
 	$(CP) ./src/* $(PKG_BUILD_DIR)/
 endef
 
+define Build/Compile
+	$(MAKE) -C "$(PKG_BUILD_DIR)" \
+		EXTRA_CFLAGS="$(EXTRA_CFLAGS)" \
+		CROSS_COMPILE="$(TARGET_CROSS)" \
+		ARCH="$(LINUX_KARCH)" \
+		M="$(PKG_BUILD_DIR)" \
+		CC="$(TARGET_CC)"
+endef
+
 define Package/Quectel_QConnectManager/install
-	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin  $(1)/lib/netifd/proto
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Quectel-QConnectManager $(1)/usr/bin
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/quectel-qmi-proxy $(1)/usr/bin
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/quectel-mbim-proxy $(1)/usr/bin
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/quectel-qrtr-proxy $(1)/usr/bin
-	#$(INSTALL_BIN) $(PKG_BUILD_DIR)/quectel-atc-proxy $(1)/usr/bin
+	$(INSTALL_BIN) ./files/rmnet_init.sh $(1)/lib/netifd
+	$(INSTALL_BIN) ./files/rmnet.script $(1)/lib/netifd
+	$(INSTALL_BIN) ./files/rmnet.sh $(1)/lib/netifd/proto
+	$(INSTALL_BIN) ./files/rmnet6.sh $(1)/lib/netifd/proto
+	$(INSTALL_BIN) ./files/rmnet6.script $(1)/lib/netifd
 endef
 
 $(eval $(call BuildPackage,Quectel_QConnectManager))

@@ -1,14 +1,15 @@
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=Quectel_QConnectManager
+PKG_NAME:= quectel-CM-5G
+PKG_VERSION:=1.6.5
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/Quectel_QConnectManager
+define Package/quectel-CM-5G
   SECTION:=utils
   CATEGORY:=Utilities
-  TITLE:=Quectel QConnectManager
+  TITLE:=quectel-CM-5G app
 endef
 
 define Build/Prepare
@@ -25,9 +26,9 @@ define Build/Compile
 		CC="$(TARGET_CC)"
 endef
 
-define Package/Quectel_QConnectManager/install
-	$(INSTALL_DIR) $(1)/usr/bin  $(1)/lib/netifd/proto
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/Quectel-QConnectManager $(1)/usr/bin
+define Package/quectel-CM-5G/install
+	$(INSTALL_DIR) $(1)/usr/bin $(1)/lib/netifd/proto
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/quectel-CM $(1)/usr/bin
 	$(INSTALL_BIN) ./files/rmnet_init.sh $(1)/lib/netifd
 	$(INSTALL_BIN) ./files/rmnet.script $(1)/lib/netifd
 	$(INSTALL_BIN) ./files/rmnet.sh $(1)/lib/netifd/proto
@@ -35,4 +36,4 @@ define Package/Quectel_QConnectManager/install
 	$(INSTALL_BIN) ./files/rmnet6.script $(1)/lib/netifd
 endef
 
-$(eval $(call BuildPackage,Quectel_QConnectManager))
+$(eval $(call BuildPackage,quectel-CM-5G))
